@@ -41,6 +41,17 @@
         }
 
         /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
         .nav {
             display: flex;
             justify-content: space-between;
@@ -173,6 +184,15 @@
                 font-size: 0.8rem;
                 padding: 0.5rem 1rem;
             }
+        }
+
+        /* Ajuste para el contenido debajo del nav fijo */
+        main {
+            padding-top: 80px; /* altura del nav */
+        }
+
+        .hero {
+            margin-top: -80px; /* compensar el padding del main para el hero */
         }
 
         /* Hero Section */
@@ -415,46 +435,35 @@
 
         /* Cards section - Estilo Brutalista */
         .cards {
-            background: #fff;
-            padding: calc(var(--spacing) * 5) 0;
-            position: relative;
+            padding: var(--spacing) 0;
+            background: var(--color-background);
+            overflow: hidden;
         }
 
-        .cards::before {
-            content: 'BRUTAL';
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            font-size: 180px;
-            font-weight: 900;
-            color: rgba(0,0,0,0.1);
-            pointer-events: none;
-            transform: rotate(-10deg);
+        .cards .container {
+            max-width: 100%;
+            padding: 0;
         }
 
         .cards__grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 4rem;
-            padding: 4rem;
-            max-width: 1800px;
-            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            width: 100%;
         }
 
         .card {
-            background: #fff;
-            border: 4px solid #000;
-            box-shadow: 12px 12px 0 #000;
-            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-            aspect-ratio: 1;
-            padding: 4rem;
+            width: 100%;
+            min-height: 300px;
+            height: auto;
+            padding: 4rem 2rem;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            z-index: 1;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--color-background);
+            transition: transform 0.3s ease;
         }
 
         .card::before {
@@ -462,104 +471,75 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 150%;
-            height: 150%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
-            transform: rotate(-10deg) scale(1.2);
+            opacity: 0.1;
+            transform: rotate(-3deg) scale(1.1);
             transition: all 0.3s ease;
-            z-index: -1;
+            z-index: 1;
         }
 
         .card:hover::before {
-            transform: rotate(-5deg) scale(1.3);
-            opacity: 0.2;
-        }
-
-        .card:nth-child(odd)::before {
-            transform: rotate(10deg) scale(1.2);
-        }
-
-        .card:nth-child(odd):hover::before {
-            transform: rotate(5deg) scale(1.3);
+            opacity: 0.15;
+            transform: rotate(0deg) scale(1.2);
         }
 
         .card__content {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border: 3px solid #000;
-            box-shadow: 5px 5px 0 #000;
+            text-align: center;
             width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
         }
 
         .card__title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            font-family: 'Arial Black', sans-serif;
-            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
             line-height: 1.2;
         }
 
         .card__text {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             line-height: 1.6;
-            text-align: center;
+            color: var(--color-text-secondary);
             margin: 0;
-            padding: 0 2rem;
         }
 
         @media (max-width: 1200px) {
-            .cards__grid {
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                gap: 3rem;
-                padding: 3rem;
-            }
-
-            .card {
-                padding: 3rem;
-            }
-
             .card__content {
-                padding: 1.5rem;
-            }
-
-            .card__title {
-                font-size: 2.2rem;
-            }
-
-            .card__text {
-                font-size: 1.2rem;
-                padding: 0 1.5rem;
+                max-width: 500px;
             }
         }
 
         @media (max-width: 768px) {
             .cards__grid {
                 grid-template-columns: 1fr;
-                padding: 2rem;
-                gap: 2.5rem;
             }
 
             .card {
-                padding: 2.5rem;
+                padding: 3rem 1.5rem;
             }
 
             .card__content {
                 padding: 1.5rem;
+                max-width: 100%;
             }
 
             .card__title {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
             }
 
             .card__text {
-                font-size: 1.1rem;
-                padding: 0 1rem;
+                font-size: 1rem;
             }
         }
 
@@ -891,269 +871,271 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="images/eye_view.jpg" alt="Hero Background" class="hero__image" loading="lazy">
-        <div class="hero__content">
-            <h1 class="hero__title" data-text="REPOSITORIO_01234">REPOSITORIO_01234</h1>
-            <p class="hero__text">Un espacio digital donde la consciencia y la tecnología convergen en una danza eterna de transformación y descubrimiento.</p>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="features__title">Características Principales</h2>
-            <div class="features__grid">
-                <div class="feature">
-                    <div class="feature__icon">🎨</div>
-                    <h3 class="feature__title">Diseño Brutalista</h3>
-                    <p class="feature__text">Bordes pronunciados y sombras brutales que definen una estética única</p>
-                </div>
-                <div class="feature">
-                    <div class="feature__icon">✨</div>
-                    <h3 class="feature__title">Efectos Visuales</h3>
-                    <p class="feature__text">Efectos de glitch y distorsión que crean una experiencia inmersiva</p>
-                </div>
-                <div class="feature">
-                    <div class="feature__icon">🌴</div>
-                    <h3 class="feature__title">Estilo Tropical</h3>
-                    <p class="feature__text">Elementos tropicales animados que dan vida a cada página</p>
-                </div>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="images/eye_view.jpg" alt="Hero Background" class="hero__image" loading="lazy">
+            <div class="hero__content">
+                <h1 class="hero__title" data-text="REPOSITORIO_01234">REPOSITORIO_01234</h1>
+                <p class="hero__text">Un espacio digital donde la consciencia y la tecnología convergen en una danza eterna de transformación y descubrimiento.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Cards Section -->
-    <section id="cards" class="cards">
-        <div class="container">
-            <h2 class="section__title">Conceptos & Reflexiones</h2>
-            <div class="cards__grid">
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Sinfonía del Vacío</h3>
-                        <p class="card__text">El silencio disuelve la infinitud en el eco del cosmos, donde cada vibración resuena con la esencia primordial de la existencia.</p>
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="features__title">Características Principales</h2>
+                <div class="features__grid">
+                    <div class="feature">
+                        <div class="feature__icon">🎨</div>
+                        <h3 class="feature__title">Diseño Brutalista</h3>
+                        <p class="feature__text">Bordes pronunciados y sombras brutales que definen una estética única</p>
                     </div>
-                    <style>.card:nth-child(1)::before { background-image: url('images/imagen-0003.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Jardín de lo Incognoscible</h3>
-                        <p class="card__text">La curiosidad germina en los espacios inexplorados de la mente, floreciendo en patrones de comprensión y descubrimiento.</p>
+                    <div class="feature">
+                        <div class="feature__icon">✨</div>
+                        <h3 class="feature__title">Efectos Visuales</h3>
+                        <p class="feature__text">Efectos de glitch y distorsión que crean una experiencia inmersiva</p>
                     </div>
-                    <style>.card:nth-child(2)::before { background-image: url('images/imagen-0007.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Danza de la Creación</h3>
-                        <p class="card__text">Del vacío emerge la danza eterna de la creación, un ballet cósmico que entreteje realidad y consciencia en un tapiz infinito.</p>
-                    </div>
-                    <style>.card:nth-child(3)::before { background-image: url('images/imagen-0014.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Semilla de Consciencia</h3>
-                        <p class="card__text">En la vastedad del ser, florece la semilla de la conciencia, expandiéndose en fractales de comprensión y sabiduría.</p>
-                    </div>
-                    <style>.card:nth-child(4)::before { background-image: url('images/imagen-0116.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Cartografía Insondable</h3>
-                        <p class="card__text">Trazando mapas en los territorios del pensamiento, donde cada descubrimiento revela nuevos horizontes de posibilidad.</p>
-                    </div>
-                    <style>.card:nth-child(5)::before { background-image: url('images/imagen-0122.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Alquimia del Pensamiento</h3>
-                        <p class="card__text">La transmutación de ideas en realidad, donde cada reflexión es un catalizador para la metamorfosis del entendimiento.</p>
-                    </div>
-                    <style>.card:nth-child(6)::before { background-image: url('images/imagen-0123.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Geometría Sagrada</h3>
-                        <p class="card__text">En los patrones de la existencia se revela la arquitectura del cosmos, cada forma un reflejo de la armonía universal.</p>
-                    </div>
-                    <style>.card:nth-child(7)::before { background-image: url('images/imagen-0128.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Portal de la Percepción</h3>
-                        <p class="card__text">A través del umbral de la consciencia, cada momento se convierte en una puerta hacia nuevas dimensiones de comprensión.</p>
-                    </div>
-                    <style>.card:nth-child(8)::before { background-image: url('images/imagen-0149.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Fractales de Tiempo</h3>
-                        <p class="card__text">El presente se despliega en patrones infinitos, cada instante un espejo que refleja la eternidad en miniatura.</p>
-                    </div>
-                    <style>.card:nth-child(9)::before { background-image: url('images/imagen-0161.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Resonancia Cósmica</h3>
-                        <p class="card__text">Las frecuencias del universo danzan en sincronía, creando una sinfonía de vibraciones que conectan todas las dimensiones del ser.</p>
-                    </div>
-                    <style>.card:nth-child(10)::before { background-image: url('images/imagen-0165.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Mandala del Ser</h3>
-                        <p class="card__text">En el centro de cada existencia, un mandala de posibilidades se despliega, revelando los patrones sagrados de la vida.</p>
-                    </div>
-                    <style>.card:nth-child(11)::before { background-image: url('images/imagen-0170.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Oráculo Digital</h3>
-                        <p class="card__text">La tecnología como portal hacia nuevas formas de consciencia, donde lo digital y lo místico convergen en una danza eterna.</p>
-                    </div>
-                    <style>.card:nth-child(12)::before { background-image: url('images/imagen-0174.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Metamorfosis Cuántica</h3>
-                        <p class="card__text">En el umbral entre lo posible y lo real, la transformación ocurre en múltiples dimensiones simultáneamente.</p>
-                    </div>
-                    <style>.card:nth-child(13)::before { background-image: url('images/imagen-0180.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Sincronía Universal</h3>
-                        <p class="card__text">Los hilos del destino se entrelazan en patrones significativos, revelando la interconexión de todos los momentos.</p>
-                    </div>
-                    <style>.card:nth-child(14)::before { background-image: url('images/imagen-0194.webp'); }</style>
-                </article>
-
-                <article class="card">
-                    <div class="card__content">
-                        <h3 class="card__title">Alquimia Digital</h3>
-                        <p class="card__text">La fusión de lo ancestral y lo futurista, donde cada píxel es un elemento en la gran transmutación de la consciencia.</p>
-                    </div>
-                    <style>.card:nth-child(15)::before { background-image: url('images/imagen-0209.webp'); }</style>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="gallery__title">Galería Visual</h2>
-            <div class="gallery__grid">
-                <div class="gallery__item">
-                    <img src="images/imagen-0003.webp" alt="Imagen 0003" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0007.webp" alt="Imagen 0007" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0014.webp" alt="Imagen 0014" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0116.webp" alt="Imagen 0116" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0122.webp" alt="Imagen 0122" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0123.webp" alt="Imagen 0123" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0128.webp" alt="Imagen 0128" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0149.webp" alt="Imagen 0149" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0161.webp" alt="Imagen 0161" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0165.webp" alt="Imagen 0165" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0170.webp" alt="Imagen 0170" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0174.webp" alt="Imagen 0174" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0180.webp" alt="Imagen 0180" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0194.webp" alt="Imagen 0194" class="gallery__image" loading="lazy">
-                </div>
-                <div class="gallery__item">
-                    <img src="images/imagen-0209.webp" alt="Imagen 0209" class="gallery__image" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="about__title">Manifiesto Digital</h2>
-            <div class="about__content">
-                <img src="images/imagen-0180.webp" alt="Sobre el proyecto" class="about__image" loading="lazy">
-                <div class="about__text">
-                    <p class="about__paragraph">
-                        En la intersección entre <span class="about__highlight">lo digital</span> y <span class="about__highlight">lo místico</span>, REPOSITORIO_01234 emerge como un portal hacia nuevas dimensiones de consciencia y creatividad. Este proyecto no es solo una colección de imágenes y textos; es un manifiesto vivo que explora los límites entre la realidad tangible y el reino de lo posible.
-                    </p>
-                    <p class="about__paragraph">
-                        Cada píxel, cada línea de código, es una <span class="about__highlight">semilla de transformación</span> plantada en el jardín digital de la consciencia colectiva. A través de la alquimia del pensamiento y la tecnología, creamos espacios donde la geometría sagrada de la existencia se entrelaza con los fractales del tiempo.
-                    </p>
-                    <p class="about__paragraph">
-                        Este repositorio es un <span class="about__highlight">oráculo digital</span>, un espejo que refleja la danza eterna entre el caos y el orden, entre lo ancestral y lo futurista. En cada imagen encontrarás una puerta hacia la comprensión más profunda de la realidad que nos rodea y las infinitas posibilidades que yacen en el horizonte de nuestra evolución digital.
-                    </p>
-                    <p class="about__paragraph">
-                        Como una <span class="about__highlight">cartografía insondable</span> del pensamiento contemporáneo, REPOSITORIO_01234 te invita a explorar los territorios inexplorados de la mente, donde cada descubrimiento es un paso más en el camino hacia la expansión de la consciencia y la metamorfosis del entendimiento humano.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact__content">
-                <div class="contact__image-container">
-                    <img src="images/imagen-0174.webp" alt="Sergio Forés" class="contact__image" loading="lazy">
-                </div>
-                <div class="contact__info">
-                    <h2 class="contact__name">Sergio Forés</h2>
-                    <p class="contact__quote">
-                        "En la intersección entre el arte y la tecnología, encontramos las semillas de la transformación digital"
-                    </p>
-                    <div class="contact__links">
-                        <a href="https://instagram.com/cuenta.01234" class="contact__link" target="_blank" rel="noopener">
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://www.cuenta01234.com" class="contact__link" target="_blank" rel="noopener">
-                            <span>Website</span>
-                        </a>
+                    <div class="feature">
+                        <div class="feature__icon">🌴</div>
+                        <h3 class="feature__title">Estilo Tropical</h3>
+                        <p class="feature__text">Elementos tropicales animados que dan vida a cada página</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Cards Section -->
+        <section id="cards" class="cards">
+            <div class="container">
+                <h2 class="section__title">Conceptos & Reflexiones</h2>
+                <div class="cards__grid">
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Sinfonía del Vacío</h3>
+                            <p class="card__text">El silencio disuelve la infinitud en el eco del cosmos, donde cada vibración resuena con la esencia primordial de la existencia.</p>
+                        </div>
+                        <style>.card:nth-child(1)::before { background-image: url('images/imagen-0003.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Jardín de lo Incognoscible</h3>
+                            <p class="card__text">La curiosidad germina en los espacios inexplorados de la mente, floreciendo en patrones de comprensión y descubrimiento.</p>
+                        </div>
+                        <style>.card:nth-child(2)::before { background-image: url('images/imagen-0007.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Danza de la Creación</h3>
+                            <p class="card__text">Del vacío emerge la danza eterna de la creación, un ballet cósmico que entreteje realidad y consciencia en un tapiz infinito.</p>
+                        </div>
+                        <style>.card:nth-child(3)::before { background-image: url('images/imagen-0014.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Semilla de Consciencia</h3>
+                            <p class="card__text">En la vastedad del ser, florece la semilla de la conciencia, expandiéndose en fractales de comprensión y sabiduría.</p>
+                        </div>
+                        <style>.card:nth-child(4)::before { background-image: url('images/imagen-0116.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Cartografía Insondable</h3>
+                            <p class="card__text">Trazando mapas en los territorios del pensamiento, donde cada descubrimiento revela nuevos horizontes de posibilidad.</p>
+                        </div>
+                        <style>.card:nth-child(5)::before { background-image: url('images/imagen-0122.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Alquimia del Pensamiento</h3>
+                            <p class="card__text">La transmutación de ideas en realidad, donde cada reflexión es un catalizador para la metamorfosis del entendimiento.</p>
+                        </div>
+                        <style>.card:nth-child(6)::before { background-image: url('images/imagen-0123.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Geometría Sagrada</h3>
+                            <p class="card__text">En los patrones de la existencia se revela la arquitectura del cosmos, cada forma un reflejo de la armonía universal.</p>
+                        </div>
+                        <style>.card:nth-child(7)::before { background-image: url('images/imagen-0128.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Portal de la Percepción</h3>
+                            <p class="card__text">A través del umbral de la consciencia, cada momento se convierte en una puerta hacia nuevas dimensiones de comprensión.</p>
+                        </div>
+                        <style>.card:nth-child(8)::before { background-image: url('images/imagen-0149.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Fractales de Tiempo</h3>
+                            <p class="card__text">El presente se despliega en patrones infinitos, cada instante un espejo que refleja la eternidad en miniatura.</p>
+                        </div>
+                        <style>.card:nth-child(9)::before { background-image: url('images/imagen-0161.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Resonancia Cósmica</h3>
+                            <p class="card__text">Las frecuencias del universo danzan en sincronía, creando una sinfonía de vibraciones que conectan todas las dimensiones del ser.</p>
+                        </div>
+                        <style>.card:nth-child(10)::before { background-image: url('images/imagen-0165.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Mandala del Ser</h3>
+                            <p class="card__text">En el centro de cada existencia, un mandala de posibilidades se despliega, revelando los patrones sagrados de la vida.</p>
+                        </div>
+                        <style>.card:nth-child(11)::before { background-image: url('images/imagen-0170.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Oráculo Digital</h3>
+                            <p class="card__text">La tecnología como portal hacia nuevas formas de consciencia, donde lo digital y lo místico convergen en una danza eterna.</p>
+                        </div>
+                        <style>.card:nth-child(12)::before { background-image: url('images/imagen-0174.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Metamorfosis Cuántica</h3>
+                            <p class="card__text">En el umbral entre lo posible y lo real, la transformación ocurre en múltiples dimensiones simultáneamente.</p>
+                        </div>
+                        <style>.card:nth-child(13)::before { background-image: url('images/imagen-0180.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Sincronía Universal</h3>
+                            <p class="card__text">Los hilos del destino se entrelazan en patrones significativos, revelando la interconexión de todos los momentos.</p>
+                        </div>
+                        <style>.card:nth-child(14)::before { background-image: url('images/imagen-0194.webp'); }</style>
+                    </article>
+
+                    <article class="card">
+                        <div class="card__content">
+                            <h3 class="card__title">Alquimia Digital</h3>
+                            <p class="card__text">La fusión de lo ancestral y lo futurista, donde cada píxel es un elemento en la gran transmutación de la consciencia.</p>
+                        </div>
+                        <style>.card:nth-child(15)::before { background-image: url('images/imagen-0209.webp'); }</style>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <h2 class="gallery__title">Galería Visual</h2>
+                <div class="gallery__grid">
+                    <div class="gallery__item">
+                        <img src="images/imagen-0003.webp" alt="Imagen 0003" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0007.webp" alt="Imagen 0007" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0014.webp" alt="Imagen 0014" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0116.webp" alt="Imagen 0116" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0122.webp" alt="Imagen 0122" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0123.webp" alt="Imagen 0123" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0128.webp" alt="Imagen 0128" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0149.webp" alt="Imagen 0149" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0161.webp" alt="Imagen 0161" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0165.webp" alt="Imagen 0165" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0170.webp" alt="Imagen 0170" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0174.webp" alt="Imagen 0174" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0180.webp" alt="Imagen 0180" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0194.webp" alt="Imagen 0194" class="gallery__image" loading="lazy">
+                    </div>
+                    <div class="gallery__item">
+                        <img src="images/imagen-0209.webp" alt="Imagen 0209" class="gallery__image" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="about__title">Manifiesto Digital</h2>
+                <div class="about__content">
+                    <img src="images/imagen-0180.webp" alt="Sobre el proyecto" class="about__image" loading="lazy">
+                    <div class="about__text">
+                        <p class="about__paragraph">
+                            En la intersección entre <span class="about__highlight">lo digital</span> y <span class="about__highlight">lo místico</span>, REPOSITORIO_01234 emerge como un portal hacia nuevas dimensiones de consciencia y creatividad. Este proyecto no es solo una colección de imágenes y textos; es un manifiesto vivo que explora los límites entre la realidad tangible y el reino de lo posible.
+                        </p>
+                        <p class="about__paragraph">
+                            Cada píxel, cada línea de código, es una <span class="about__highlight">semilla de transformación</span> plantada en el jardín digital de la consciencia colectiva. A través de la alquimia del pensamiento y la tecnología, creamos espacios donde la geometría sagrada de la existencia se entrelaza con los fractales del tiempo.
+                        </p>
+                        <p class="about__paragraph">
+                            Este repositorio es un <span class="about__highlight">oráculo digital</span>, un espejo que refleja la danza eterna entre el caos y el orden, entre lo ancestral y lo futurista. En cada imagen encontrarás una puerta hacia la comprensión más profunda de la realidad que nos rodea y las infinitas posibilidades que yacen en el horizonte de nuestra evolución digital.
+                        </p>
+                        <p class="about__paragraph">
+                            Como una <span class="about__highlight">cartografía insondable</span> del pensamiento contemporáneo, REPOSITORIO_01234 te invita a explorar los territorios inexplorados de la mente, donde cada descubrimiento es un paso más en el camino hacia la expansión de la consciencia y la metamorfosis del entendimiento humano.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact__content">
+                    <div class="contact__image-container">
+                        <img src="images/imagen-0174.webp" alt="Sergio Forés" class="contact__image" loading="lazy">
+                    </div>
+                    <div class="contact__info">
+                        <h2 class="contact__name">Sergio Forés</h2>
+                        <p class="contact__quote">
+                            "En la intersección entre el arte y la tecnología, encontramos las semillas de la transformación digital"
+                        </p>
+                        <div class="contact__links">
+                            <a href="https://instagram.com/cuenta.01234" class="contact__link" target="_blank" rel="noopener">
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://www.cuenta01234.com" class="contact__link" target="_blank" rel="noopener">
+                                <span>Website</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
