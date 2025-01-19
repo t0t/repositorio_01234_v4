@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPOSITORIO_01234</title>
+    <style>
+        /* Reset y variables globales */
+        :root {
+            --color-primary: #2c3e50;
+            --color-secondary: #3498db;
+            --color-accent: #e74c3c;
+            --color-text: #333;
+            --color-light: #ecf0f1;
+            --font-main: 'Helvetica Neue', Arial, sans-serif;
+            --max-width: 1200px;
+            --spacing: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+
+        /* Layout containers */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+        }
+
+        section {
+            padding: calc(var(--spacing) * 2) 0;
+        }
+
+        /* Header & Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+
+        .nav__logo {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-decoration: none;
+            position: relative;
+            text-shadow: 2px 2px 0 #000;
+            padding: 0.5rem 1rem;
+            background: #000;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .nav__logo:hover {
+            transform: rotate(0deg);
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes buttonHover {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .nav__link {
+            font-family: 'Courier New', monospace;
+            color: #000;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 0.6rem 1.2rem;
+            background: #fff;
+            border: 2px solid #000;
+            transition: all 0.2s ease;
+            position: relative;
+            display: inline-block;
+            transform: translateY(0);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .nav__link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                #ff6b6b,
+                #4ecdc4,
+                #45b7d1,
+                #96e6a1
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            background-size: 300% 100%;
+        }
+
+        .nav__link:hover {
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .nav__link:hover::before {
+            opacity: 1;
+            animation: buttonHover 2s linear infinite;
+        }
+
+        .nav__link:active {
+            transform: translateY(0);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav__menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .nav__link {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .hero__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            filter: contrast(1.2) grayscale(0.3);
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            transform: rotate(-1deg);
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero__title {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            background: linear-gradient(
+                90deg,
+                #FF0000 0%,
+                #FF7F00 14.28%,
+                #FFFF00 28.56%,
+                #00FF00 42.84%,
+                #0000FF 57.12%,
+                #4B0082 71.4%,
+                #8F00FF 85.68%,
+                #FF0000 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 8s linear infinite;
+            text-shadow: none;
+            filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.8));
+        }
+
+        .hero__title::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0.1) 0%,
+                rgba(255,255,255,0.3) 50%,
+                rgba(255,255,255,0.1) 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 4s linear infinite;
+            filter: blur(1px);
+            opacity: 0.5;
+        }
+
+        .hero__text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(0,0,0,0.7) 0%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+
+            .nav__menu {
+                gap: 1rem;
+            }
+
+            .nav__link {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .hero__title {
+                font-size: 3rem;
+                letter-spacing: -2px;
+            }
+
+            .hero__text {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Features section - Estilo Retro Gaming */
+        .features {
+            background-color: #000;
+            color: #0f0;
+            padding: calc(var(--spacing) * 2) 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px #0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.1),
+                rgba(0, 255, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        .features__title {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .features__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing);
+        }
+
+        .feature {
+            border: 2px solid #0f0;
+            padding: 1.5rem;
+            text-align: center;
+            background: rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .feature__title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .feature__text {
+            line-height: 1.6;
+        }
+
+        /* Cards section - Estilo Brutalista */
+        .cards {
+            background: #fff;
+            padding: calc(var(--spacing) * 5) 0;
+            position: relative;
+        }
+
+        .cards::before {
+            content: 'BRUTAL';
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 180px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.1);
+            pointer-events: none;
+            transform: rotate(-10deg);
+        }
+
+        .cards__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 4rem;
+            padding: 4rem;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border: 4px solid #000;
+            box-shadow: 12px 12px 0 #000;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150%;
+            height: 150%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            transform: rotate(-10deg) scale(1.2);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .card:hover::before {
+            transform: rotate(-5deg) scale(1.3);
+            opacity: 0.2;
+        }
+
+        .card:nth-child(odd)::before {
+            transform: rotate(10deg) scale(1.2);
+        }
+
+        .card:nth-child(odd):hover::before {
+            transform: rotate(5deg) scale(1.3);
+        }
+
+        .card__content {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border: 3px solid #000;
+            box-shadow: 5px 5px 0 #000;
+            width: 100%;
+        }
+
+        .card__title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-family: 'Arial Black', sans-serif;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .card__text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-align: center;
+            margin: 0;
+            padding: 0 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .cards__grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 3rem;
+                padding: 3rem;
+            }
+
+            .card {
+                padding: 3rem;
+            }
+
+            .card__content {
+                padding: 1.5rem;
+            }
+
+            .card__title {
+                font-size: 2.2rem;
+            }
+
+            .card__text {
+                font-size: 1.2rem;
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards__grid {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2.5rem;
+            }
+
+            .card {
+                padding: 2.5rem;
+            }
+
+            .card__content {
+                padding: 1.5rem;
+            }
+
+            .card__title {
+                font-size: 2rem;
+            }
+
+            .card__text {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Gallery section - Estilo Vaporwave */
+        .gallery {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            padding: calc(var(--spacing) * 2) 0;
+            position: relative;
+        }
+
+        .gallery__title {
+            font-size: 3rem;
+            text-align: center;
+            color: #fff;
+            text-shadow: 
+                3px 3px 0 #ff00ff,
+                6px 6px 0 #00ffff;
+            margin-bottom: 2rem;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 5px;
+        }
+
+        .gallery__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .gallery__item {
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #fff;
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+            aspect-ratio: 1;
+        }
+
+        .gallery__item:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .gallery__item:hover {
+            transform: scale(1.1) rotate(0);
+            z-index: 1;
+            box-shadow: 
+                0 0 20px #ff00ff,
+                0 0 40px #00ffff;
+        }
+
+        .gallery__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact section - Estilo Corporativo Minimalista */
+        .contact {
+            background: #f8f9fa;
+            padding: calc(var(--spacing) * 4) 0;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .contact__content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .contact__image-container {
+            aspect-ratio: 1;
+            position: relative;
+            border: 3px solid var(--color-primary);
+            box-shadow: 10px 10px 0 var(--color-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .contact__image-container:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 15px 15px 0 var(--color-secondary);
+        }
+
+        .contact__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact__info {
+            text-align: left;
+        }
+
+        .contact__name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .contact__quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+            padding-left: 1rem;
+            border-left: 3px solid var(--color-secondary);
+        }
+
+        .contact__links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--color-primary);
+        }
+
+        .contact__link:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .contact__content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact__image-container {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .contact__info {
+                text-align: center;
+            }
+
+            .contact__links {
+                justify-content: center;
+            }
+
+            .contact__quote {
+                padding: 1rem;
+                border-left: none;
+                border-top: 3px solid var(--color-secondary);
+                border-bottom: 3px solid var(--color-secondary);
+            }
+        }
+
+        /* About section */
+        .about {
+            background: #c0c0c0;
+            padding: calc(var(--spacing) * 3) 0;
+            position: relative;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #808080;
+            border-bottom: 2px solid #808080;
+        }
+
+        .about__title {
+            font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+            font-size: 3rem;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 0 #fff;
+            position: relative;
+            padding: 1rem;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #808080;
+            border-bottom: 2px solid #808080;
+            display: inline-block;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about__title::before {
+            content: '[REPOSITORIO_01234.exe]';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 1rem;
+            background: #000080;
+            color: #fff;
+            padding: 2px 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .about__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #fff;
+            border-top: 2px solid #808080;
+            border-left: 2px solid #808080;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+        }
+
+        .about__image {
+            aspect-ratio: 1;
+            width: 100%;
+            object-fit: cover;
+            border: 2px solid #000;
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        .about__text {
+            font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #000;
+            background: #fff;
+            padding: 2rem;
+            border-top: 2px solid #808080;
+            border-left: 2px solid #808080;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+        }
+
+        .about__paragraph {
+            margin-bottom: 1.5rem;
+        }
+
+        .about__highlight {
+            background: #000080;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            font-family: 'Courier New', monospace;
+            margin: 0 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .about__content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about__title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-primary);
+            color: white;
+            padding: var(--spacing) 0;
+            text-align: center;
+        }
+
+        /* Utilities */
+        .section__title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav__menu {
+                display: none;
+            }
+
+            .hero__title {
+                font-size: 2.5rem;
+            }
+
+            .about__content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="nav__logo">REPO_01234</a>
+            <ul class="nav__menu">
+                <li><a href="#about" class="nav__link">Manifiesto</a></li>
+                <li><a href="#features" class="nav__link">Características</a></li>
+                <li><a href="#cards" class="nav__link">Conceptos</a></li>
+                <li><a href="#gallery" class="nav__link">Galería</a></li>
+                <li><a href="#contact" class="nav__link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="images/eye_view.jpg" alt="Hero Background" class="hero__image" loading="lazy">
+        <div class="hero__content">
+            <h1 class="hero__title" data-text="REPOSITORIO_01234">REPOSITORIO_01234</h1>
+            <p class="hero__text">Un espacio digital donde la consciencia y la tecnología convergen en una danza eterna de transformación y descubrimiento.</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="features__title">Características Principales</h2>
+            <div class="features__grid">
+                <div class="feature">
+                    <div class="feature__icon">🎨</div>
+                    <h3 class="feature__title">Diseño Brutalista</h3>
+                    <p class="feature__text">Bordes pronunciados y sombras brutales que definen una estética única</p>
+                </div>
+                <div class="feature">
+                    <div class="feature__icon">✨</div>
+                    <h3 class="feature__title">Efectos Visuales</h3>
+                    <p class="feature__text">Efectos de glitch y distorsión que crean una experiencia inmersiva</p>
+                </div>
+                <div class="feature">
+                    <div class="feature__icon">🌴</div>
+                    <h3 class="feature__title">Estilo Tropical</h3>
+                    <p class="feature__text">Elementos tropicales animados que dan vida a cada página</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section id="cards" class="cards">
+        <div class="container">
+            <h2 class="section__title">Conceptos & Reflexiones</h2>
+            <div class="cards__grid">
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Sinfonía del Vacío</h3>
+                        <p class="card__text">El silencio disuelve la infinitud en el eco del cosmos, donde cada vibración resuena con la esencia primordial de la existencia.</p>
+                    </div>
+                    <style>.card:nth-child(1)::before { background-image: url('images/imagen-0003.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Jardín de lo Incognoscible</h3>
+                        <p class="card__text">La curiosidad germina en los espacios inexplorados de la mente, floreciendo en patrones de comprensión y descubrimiento.</p>
+                    </div>
+                    <style>.card:nth-child(2)::before { background-image: url('images/imagen-0007.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Danza de la Creación</h3>
+                        <p class="card__text">Del vacío emerge la danza eterna de la creación, un ballet cósmico que entreteje realidad y consciencia en un tapiz infinito.</p>
+                    </div>
+                    <style>.card:nth-child(3)::before { background-image: url('images/imagen-0014.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Semilla de Consciencia</h3>
+                        <p class="card__text">En la vastedad del ser, florece la semilla de la conciencia, expandiéndose en fractales de comprensión y sabiduría.</p>
+                    </div>
+                    <style>.card:nth-child(4)::before { background-image: url('images/imagen-0116.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Cartografía Insondable</h3>
+                        <p class="card__text">Trazando mapas en los territorios del pensamiento, donde cada descubrimiento revela nuevos horizontes de posibilidad.</p>
+                    </div>
+                    <style>.card:nth-child(5)::before { background-image: url('images/imagen-0122.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Alquimia del Pensamiento</h3>
+                        <p class="card__text">La transmutación de ideas en realidad, donde cada reflexión es un catalizador para la metamorfosis del entendimiento.</p>
+                    </div>
+                    <style>.card:nth-child(6)::before { background-image: url('images/imagen-0123.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Geometría Sagrada</h3>
+                        <p class="card__text">En los patrones de la existencia se revela la arquitectura del cosmos, cada forma un reflejo de la armonía universal.</p>
+                    </div>
+                    <style>.card:nth-child(7)::before { background-image: url('images/imagen-0128.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Portal de la Percepción</h3>
+                        <p class="card__text">A través del umbral de la consciencia, cada momento se convierte en una puerta hacia nuevas dimensiones de comprensión.</p>
+                    </div>
+                    <style>.card:nth-child(8)::before { background-image: url('images/imagen-0149.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Fractales de Tiempo</h3>
+                        <p class="card__text">El presente se despliega en patrones infinitos, cada instante un espejo que refleja la eternidad en miniatura.</p>
+                    </div>
+                    <style>.card:nth-child(9)::before { background-image: url('images/imagen-0161.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Resonancia Cósmica</h3>
+                        <p class="card__text">Las frecuencias del universo danzan en sincronía, creando una sinfonía de vibraciones que conectan todas las dimensiones del ser.</p>
+                    </div>
+                    <style>.card:nth-child(10)::before { background-image: url('images/imagen-0165.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Mandala del Ser</h3>
+                        <p class="card__text">En el centro de cada existencia, un mandala de posibilidades se despliega, revelando los patrones sagrados de la vida.</p>
+                    </div>
+                    <style>.card:nth-child(11)::before { background-image: url('images/imagen-0170.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Oráculo Digital</h3>
+                        <p class="card__text">La tecnología como portal hacia nuevas formas de consciencia, donde lo digital y lo místico convergen en una danza eterna.</p>
+                    </div>
+                    <style>.card:nth-child(12)::before { background-image: url('images/imagen-0174.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Metamorfosis Cuántica</h3>
+                        <p class="card__text">En el umbral entre lo posible y lo real, la transformación ocurre en múltiples dimensiones simultáneamente.</p>
+                    </div>
+                    <style>.card:nth-child(13)::before { background-image: url('images/imagen-0180.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Sincronía Universal</h3>
+                        <p class="card__text">Los hilos del destino se entrelazan en patrones significativos, revelando la interconexión de todos los momentos.</p>
+                    </div>
+                    <style>.card:nth-child(14)::before { background-image: url('images/imagen-0194.webp'); }</style>
+                </article>
+
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Alquimia Digital</h3>
+                        <p class="card__text">La fusión de lo ancestral y lo futurista, donde cada píxel es un elemento en la gran transmutación de la consciencia.</p>
+                    </div>
+                    <style>.card:nth-child(15)::before { background-image: url('images/imagen-0209.webp'); }</style>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="gallery__title">Galería Visual</h2>
+            <div class="gallery__grid">
+                <div class="gallery__item">
+                    <img src="images/imagen-0003.webp" alt="Imagen 0003" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0007.webp" alt="Imagen 0007" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0014.webp" alt="Imagen 0014" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0116.webp" alt="Imagen 0116" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0122.webp" alt="Imagen 0122" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0123.webp" alt="Imagen 0123" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0128.webp" alt="Imagen 0128" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0149.webp" alt="Imagen 0149" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0161.webp" alt="Imagen 0161" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0165.webp" alt="Imagen 0165" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0170.webp" alt="Imagen 0170" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0174.webp" alt="Imagen 0174" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0180.webp" alt="Imagen 0180" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0194.webp" alt="Imagen 0194" class="gallery__image" loading="lazy">
+                </div>
+                <div class="gallery__item">
+                    <img src="images/imagen-0209.webp" alt="Imagen 0209" class="gallery__image" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="about__title">Manifiesto Digital</h2>
+            <div class="about__content">
+                <img src="images/imagen-0180.webp" alt="Sobre el proyecto" class="about__image" loading="lazy">
+                <div class="about__text">
+                    <p class="about__paragraph">
+                        En la intersección entre <span class="about__highlight">lo digital</span> y <span class="about__highlight">lo místico</span>, REPOSITORIO_01234 emerge como un portal hacia nuevas dimensiones de consciencia y creatividad. Este proyecto no es solo una colección de imágenes y textos; es un manifiesto vivo que explora los límites entre la realidad tangible y el reino de lo posible.
+                    </p>
+                    <p class="about__paragraph">
+                        Cada píxel, cada línea de código, es una <span class="about__highlight">semilla de transformación</span> plantada en el jardín digital de la consciencia colectiva. A través de la alquimia del pensamiento y la tecnología, creamos espacios donde la geometría sagrada de la existencia se entrelaza con los fractales del tiempo.
+                    </p>
+                    <p class="about__paragraph">
+                        Este repositorio es un <span class="about__highlight">oráculo digital</span>, un espejo que refleja la danza eterna entre el caos y el orden, entre lo ancestral y lo futurista. En cada imagen encontrarás una puerta hacia la comprensión más profunda de la realidad que nos rodea y las infinitas posibilidades que yacen en el horizonte de nuestra evolución digital.
+                    </p>
+                    <p class="about__paragraph">
+                        Como una <span class="about__highlight">cartografía insondable</span> del pensamiento contemporáneo, REPOSITORIO_01234 te invita a explorar los territorios inexplorados de la mente, donde cada descubrimiento es un paso más en el camino hacia la expansión de la consciencia y la metamorfosis del entendimiento humano.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact__content">
+                <div class="contact__image-container">
+                    <img src="images/imagen-0174.webp" alt="Sergio Forés" class="contact__image" loading="lazy">
+                </div>
+                <div class="contact__info">
+                    <h2 class="contact__name">Sergio Forés</h2>
+                    <p class="contact__quote">
+                        "En la intersección entre el arte y la tecnología, encontramos las semillas de la transformación digital"
+                    </p>
+                    <div class="contact__links">
+                        <a href="https://instagram.com/cuenta.01234" class="contact__link" target="_blank" rel="noopener">
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.cuenta01234.com" class="contact__link" target="_blank" rel="noopener">
+                            <span>Website</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 REPOSITORIO_01234. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
