@@ -1,0 +1,119 @@
+/* Nav Component Styles */
+.nav-component {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background: var(--nav-background, var(--color-background));
+    transition: right 0.3s ease;
+    z-index: 9999;
+    border-left: 1px solid var(--nav-border, var(--color-text));
+}
+
+.nav-component.active {
+    right: 0;
+}
+
+.nav-content {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: var(--nav-text, var(--color-text));
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--nav-accent, var(--color-accent));
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--nav-accent, var(--color-accent));
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    width: 100%;
+}
+
+/* Toggle Button Styles */
+.toggle-container {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    z-index: 10000 !important;
+    width: 40px;
+    height: 40px;
+    mix-blend-mode: difference; /* Esto ayuda a que el toggle sea visible en fondos claros y oscuros */
+}
+
+.toggle-button {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: inherit;
+}
+
+.toggle-icon,
+.toggle-icon::before,
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 24px;
+    background: var(--nav-text, var(--color-text));
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Añadir sombra para mejor visibilidad */
+}
+
+.toggle-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle-icon::before {
+    top: -8px;
+    left: 0;
+}
+
+.toggle-icon::after {
+    bottom: -8px;
+    left: 0;
+}
+
+.toggle-button.active .toggle-icon {
+    background: transparent;
+}
+
+.toggle-button.active .toggle-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.toggle-button.active .toggle-icon::after {
+    bottom: 0;
+    transform: rotate(-45deg);
+}

@@ -82,42 +82,45 @@ document.querySelectorAll('.article-card').forEach(card => {
     });
 });
 
-// Dynamic Navigation Background
-const nav = document.querySelector('.nav');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        nav.style.background = 'rgba(0, 0, 0, 0.95)';
-    } else {
-        nav.style.background = 'rgba(0, 0, 0, 0.9)';
+// Fondo dinámico
+const images = [
+    'images/imagen-0007.webp',
+    'images/imagen-0174.webp',
+    'images/imagen-0180.webp',
+    'images/imagen-0194.webp',
+    'images/imagen-0209.webp'
+];
+
+// Crear celdas del fondo
+const background = document.querySelector('.dynamic-background');
+if (background) {
+    for (let i = 0; i < 16; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'bg-cell';
+        background.appendChild(cell);
     }
-});
 
-// Cursor Trail Effect
-const cursor = document.createElement('div');
-cursor.classList.add('cursor-trail');
-document.body.appendChild(cursor);
+    // Función para cambiar imagen aleatoria
+    function changeRandomImage() {
+        const cells = document.querySelectorAll('.bg-cell');
+        const randomCell = cells[Math.floor(Math.random() * cells.length)];
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        
+        // Transición suave
+        randomCell.style.opacity = '0';
+        setTimeout(() => {
+            randomCell.style.backgroundImage = `url(${randomImage})`;
+            randomCell.style.opacity = '1';
+        }, 500);
+    }
 
-let cursorX = 0;
-let cursorY = 0;
-let trailX = 0;
-let trailY = 0;
+    // Inicializar todas las celdas
+    const cells = document.querySelectorAll('.bg-cell');
+    cells.forEach(cell => {
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        cell.style.backgroundImage = `url(${randomImage})`;
+    });
 
-document.addEventListener('mousemove', (e) => {
-    cursorX = e.clientX;
-    cursorY = e.clientY;
-});
-
-function animate() {
-    const dx = cursorX - trailX;
-    const dy = cursorY - trailY;
-    
-    trailX += dx * 0.1;
-    trailY += dy * 0.1;
-    
-    cursor.style.left = `${trailX}px`;
-    cursor.style.top = `${trailY}px`;
-    
-    requestAnimationFrame(animate);
+    // Cambiar imágenes periódicamente
+    setInterval(changeRandomImage, 2000);
 }
-
-animate();

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600&family=Quicksand:wght@300;400;600&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-bg: #f8f4f0;
+            --color-text: #2c2c2c;
+            --color-primary: #d4b8e8;
+            --color-secondary: #e8d4b8;
+            --color-accent: #b8e8d4;
+            --font-display: 'Cormorant', serif;
+            --font-body: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ethereal Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        .header-component {
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                        url('images/imagen-0180.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .header-component::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, 
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+            animation: ethereal-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes ethereal-pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+
+        .ethereal-title {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: var(--color-text);
+            margin: 0;
+            letter-spacing: 0.2em;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .ethereal-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--color-text);
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-component {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 2px;
+            padding: 2rem;
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-component:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            transition: all 0.6s ease;
+        }
+
+        .card-image:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .ethereal-button {
+            background: transparent;
+            border: 1px solid var(--color-text);
+            color: var(--color-text);
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ethereal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary);
+            opacity: 0.3;
+            transition: all 0.6s ease;
+        }
+
+        .ethereal-button:hover::before {
+            left: 0;
+        }
+
+        .ethereal-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: var(--color-text);
+            opacity: 0.9;
+            margin: 2rem 0;
+            transition: all 0.6s ease;
+        }
+
+        .ethereal-text:hover {
+            opacity: 1;
+            transform: translateX(10px);
+        }
+
+        .ethereal-image {
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ethereal-style {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(110%) contrast(90%) saturate(120%);
+            animation: ethereal-float 8s ease-in-out infinite;
+        }
+
+        .ethereal-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent);
+            mix-blend-mode: screen;
+            animation: ethereal-glow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes ethereal-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes ethereal-glow {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 768px) {
+            .ethereal-title { font-size: 3rem; }
+            .content-grid { padding: 2rem 1rem; }
+        }
+
+        .ethereal-content {
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .ethereal-text {
+            display: inline-block;
+            margin: 1rem;
+            padding: 0.5rem 1rem;
+            color: var(--color-text);
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+            animation: ethereal-float 4s ease-in-out infinite;
+        }
+
+        .ethereal-text::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: radial-gradient(circle at center, 
+                rgba(255,255,255,0.1) 0%,
+                rgba(255,255,255,0) 70%);
+            opacity: 0;
+            animation: ethereal-glow 4s ease-in-out infinite;
+        }
+
+        .ethereal-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .ethereal-particles::before,
+        .ethereal-particles::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            animation: particle-float 6s infinite;
+        }
+
+        @keyframes ethereal-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes ethereal-glow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes particle-float {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { transform: translate(20px, -20px); opacity: 1; }
+            100% { transform: translate(40px, -40px); opacity: 0; }
+        }
+    </style>
+    <link rel="stylesheet" href="styles/nav.css">
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+    <div class="particles" id="particles"></div>
+
+    <!-- Header Component -->
+    <div data-component="header">
+        <div slot="title">Ethereal_01234</div>
+        <div slot="subtitle">Beyond Reality</div>
+        <div class="ethereal-image">
+            <img src="images/imagen-0165.webp" alt="Ethereal Design" class="ethereal-style">
+            <div class="ethereal-glow"></div>
+        </div>
+    </div>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div class="card-component">
+            <div slot="card-header">ETHEREAL.VISIONS</div>
+            <div slot="card-body">
+                <div class="ethereal-content" id="visions-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">ASTRAL.PLANE</div>
+            <div slot="card-body">
+                <div class="ethereal-content" id="astral-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">COSMIC.FLOW</div>
+            <div slot="card-body">
+                <div class="ethereal-content" id="cosmic-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script src="js/nav-component.js"></script>
+    <script>
+        // Initialize content loader
+        const contentLoader = new ContentLoader();
+        
+        // Load content when page loads
+        contentLoader.loadContent().then(() => {
+            const categories = [
+                {id: 'visions-content', section: 'conceptos_fundamentales'},
+                {id: 'astral-content', section: 'estados_mentales'},
+                {id: 'cosmic-content', section: 'elementos_misticos'}
+            ];
+
+            categories.forEach(category => {
+                const content = contentLoader.getRandomContent(category.section, 3);
+                if (content && content.length > 0) {
+                    const container = document.getElementById(category.id);
+                    content.forEach(word => {
+                        const etherealText = document.createElement('span');
+                        etherealText.className = 'ethereal-text';
+                        etherealText.textContent = word.toUpperCase();
+                        container.appendChild(etherealText);
+                        
+                        // Add ethereal particle effect
+                        const particles = document.createElement('div');
+                        particles.className = 'ethereal-particles';
+                        container.appendChild(particles);
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Crear partículas etéreas
+        const particles = document.getElementById('particles');
+        for(let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 100 + 50 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particles.appendChild(particle);
+        }
+
+        // Content loader
+        const contentLoader = new ContentLoader();
+        
+        contentLoader.loadContent().then(() => {
+            const etherealWords = contentLoader.getRandomContent('elementos_místicos', 10);
+            const inspirationalPhrases = contentLoader.getRandomContent('frases_inspiradoras', 5);
+            
+            // Actualizar textos con contenido místico
+            document.querySelectorAll('.ethereal-text').forEach((text, index) => {
+                setInterval(() => {
+                    const word = etherealWords[Math.floor(Math.random() * etherealWords.length)];
+                    text.textContent = word;
+                    text.style.opacity = 0;
+                    setTimeout(() => text.style.opacity = 0.9, 300);
+                }, 5000 + (index * 1000));
+            });
+
+            // Actualizar subtítulo con frases inspiradoras
+            const subtitle = document.querySelector('.ethereal-subtitle');
+            setInterval(() => {
+                const phrase = inspirationalPhrases[Math.floor(Math.random() * inspirationalPhrases.length)];
+                subtitle.style.opacity = 0;
+                setTimeout(() => {
+                    subtitle.textContent = phrase;
+                    subtitle.style.opacity = 0.8;
+                }, 500);
+            }, 7000);
+        });
+
+        // Efecto de parallax suave
+        document.addEventListener('mousemove', e => {
+            const moveX = (e.clientX - window.innerWidth/2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight/2) * 0.01;
+            
+            document.querySelectorAll('.card-component').forEach(card => {
+                card.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

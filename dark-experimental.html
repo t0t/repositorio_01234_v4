@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Experimental_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-bg: #0a0a0a;
+            --color-text: #f0f0f0;
+            --color-accent: #ff3c3c;
+            --font-display: 'Syncopate', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header-component {
+            padding: 4rem 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border: 1px solid var(--color-accent);
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 60, 60, 0.1);
+            border: 1px solid var(--color-accent);
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            color: var(--color-accent);
+            margin: 0 0 1rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .dark-image {
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .dark-style {
+            width: 100%;
+            height: auto;
+            display: block;
+            mix-blend-mode: luminosity;
+            filter: contrast(150%) brightness(80%);
+            animation: dark-pulse 4s ease-in-out infinite;
+        }
+
+        .dark-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVfJ92AAAACHRSTlMAERwkM0VZXYMX7kMAAABkSURBVDjLY2AgErBAqYgwBShcRqgEQyOMz4jGZ0Tjg/kgCSYGYgHRAFhfxAKYvogFMH0RC2D6IhbA9EUsgOmLWADTF7EApg9qEjofxAeqhfGh6mB8mDoYH6oOxkfIEyUOxAEA+qQMF0hbc4AAAAAASUVORK5CYII=');
+            opacity: 0.1;
+            animation: noise 0.5s steps(2) infinite;
+            pointer-events: none;
+        }
+
+        @keyframes dark-pulse {
+            0%, 100% { filter: contrast(150%) brightness(80%); }
+            50% { filter: contrast(200%) brightness(60%); }
+        }
+
+        @keyframes noise {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(5%, 5%); }
+            30% { transform: translate(-5%, 5%); }
+            40% { transform: translate(5%, -5%); }
+            50% { transform: translate(-5%, -5%); }
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        .dark-content {
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 1rem 0;
+        }
+
+        .dark-text {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--color-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: skew(-5deg);
+            transition: all 0.3s ease;
+            animation: dark-pulse 4s infinite;
+        }
+
+        .dark-text:hover {
+            background: rgba(20, 20, 20, 0.9);
+            transform: skew(-5deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes dark-pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .nav-component {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.8);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        .toggle-container {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .toggle-icon {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: var(--color-text);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-button:hover .toggle-icon {
+            transform: scale(1.1);
+        }
+
+        /* Asegurar que el nav y toggle están visibles */
+        nav-sidebar {
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Ajustar colores del nav para el tema dark */
+        :root {
+            --nav-background: #0a0a0a;
+            --nav-text: #ffffff;
+            --nav-accent: #ff3c3c;
+            --nav-border: #333;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/nav.css">
+</head>
+<body>
+    <!-- Nav Component -->
+    <nav-sidebar></nav-sidebar>
+
+    <!-- Header Component -->
+    <header class="header-component">
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button id="toggleButton" class="toggle-button">
+                <span class="toggle-icon"></span>
+            </button>
+        </div>
+        <div slot="title">DARK_01234</div>
+        <div slot="subtitle">EXPERIMENTAL DESIGN</div>
+        <div class="dark-image">
+            <img src="images/imagen-0174.webp" alt="Dark Experimental" class="dark-style">
+            <div class="dark-noise"></div>
+        </div>
+    </header>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div class="card-component">
+            <div slot="card-header">DARK.THOUGHTS</div>
+            <div slot="card-body">
+                <div class="dark-content" id="thoughts-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">SHADOW.REALM</div>
+            <div slot="card-body">
+                <div class="dark-content" id="shadow-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">VOID.ESSENCE</div>
+            <div slot="card-body">
+                <div class="dark-content" id="void-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script src="js/nav-component.js"></script>
+    <script>
+        // Initialize content loader
+        const contentLoader = new ContentLoader();
+        
+        // Load content when page loads
+        contentLoader.loadContent().then(() => {
+            const categories = [
+                {id: 'thoughts-content', section: 'conceptos_fundamentales'},
+                {id: 'shadow-content', section: 'estados_mentales'},
+                {id: 'void-content', section: 'elementos_misticos'}
+            ];
+
+            categories.forEach(category => {
+                const content = contentLoader.getRandomContent(category.section, 3);
+                if (content && content.length > 0) {
+                    const container = document.getElementById(category.id);
+                    content.forEach(word => {
+                        const darkText = document.createElement('div');
+                        darkText.className = 'dark-text';
+                        darkText.textContent = word.toUpperCase();
+                        container.appendChild(darkText);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

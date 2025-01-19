@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-matrix: #00ff00;
+            --color-dark: #000000;
+            --color-light: #003300;
+            --font-code: 'Source Code Pro', monospace;
+        }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-matrix);
+            font-family: var(--font-code);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Matrix Rain Effect */
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header-component {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 1px solid var(--color-matrix);
+            background: rgba(0, 0, 0, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            box-shadow: 0 0 20px var(--color-matrix);
+        }
+
+        .card-component {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--color-matrix);
+            margin: 2rem;
+            padding: 2rem;
+            box-shadow: 0 0 10px var(--color-matrix);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .matrix-button {
+            background: transparent;
+            border: 1px solid var(--color-matrix);
+            color: var(--color-matrix);
+            padding: 1rem 2rem;
+            font-family: var(--font-code);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-matrix);
+            transition: all 0.3s ease;
+            opacity: 0.2;
+        }
+
+        .matrix-button:hover::before {
+            left: 0;
+        }
+
+        .matrix-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-shadow: 0 0 5px var(--color-matrix);
+        }
+
+        .matrix-code {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin: 1rem 0;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+
+        .matrix-terminal {
+            background: rgba(0, 51, 0, 0.3);
+            padding: 1rem;
+            border: 1px solid var(--color-matrix);
+            margin: 1rem 0;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--color-matrix);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .matrix-image {
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-style {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(120%) contrast(110%) saturate(130%) hue-rotate(90deg);
+        }
+
+        .matrix-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, 
+                rgba(0, 255, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 255, 0, 0.1) 100%
+            );
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .matrix-scan {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 0, 0.8);
+            top: 0;
+            animation: matrix-scan 2s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            pointer-events: none;
+        }
+
+        @keyframes matrix-scan {
+            0% { top: -2px; }
+            100% { top: 100%; }
+        }
+
+        .matrix-content {
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+            line-height: 1.6;
+        }
+
+        .matrix-text {
+            animation: matrix-pulse 2s infinite;
+        }
+
+        .matrix-separator {
+            opacity: 0.7;
+            animation: matrix-blink 1s infinite;
+        }
+
+        @keyframes matrix-pulse {
+            0%, 100% { text-shadow: 0 0 5px #00ff00; }
+            50% { text-shadow: 0 0 15px #00ff00; }
+        }
+
+        @keyframes matrix-blink {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+
+        .matrix-content {
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .matrix-text {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+            animation: pulse 2s infinite;
+        }
+
+        .matrix-prompt {
+            color: #0f0;
+            margin-right: 0.5rem;
+            animation: blink 1s step-end infinite;
+        }
+
+        .matrix-code {
+            position: relative;
+            color: #0f0;
+        }
+
+        .matrix-code::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0, 255, 0, 0.2) 50%,
+                transparent 100%
+            );
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes scan {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .nav-component {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--color-dark);
+            transition: right 0.3s ease;
+            z-index: 999;
+            border-left: 1px solid var(--color-matrix);
+        }
+
+        .nav-component.active {
+            right: 0;
+        }
+
+        .nav-content {
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-matrix);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-light);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        .toggle-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .toggle-icon,
+        .toggle-icon::before,
+        .toggle-icon::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 24px;
+            background: var(--color-matrix);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-icon {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .toggle-icon::before {
+            top: -8px;
+            left: 0;
+        }
+
+        .toggle-icon::after {
+            bottom: -8px;
+            left: 0;
+        }
+
+        .toggle-button.active .toggle-icon {
+            background: transparent;
+        }
+
+        .toggle-button.active .toggle-icon::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .toggle-button.active .toggle-icon::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
+    </style>
+    <link rel="stylesheet" href="styles/nav.css">
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- Header Component -->
+    <header class="header-component">
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button id="toggleButton" class="toggle-button">
+                <span class="toggle-icon"></span>
+            </button>
+        </div>
+        <div slot="title">MATRIX_01234</div>
+        <div slot="subtitle">SYSTEM.OVERRIDE</div>
+        <div class="matrix-image">
+            <img src="images/imagen-0149.webp" alt="Matrix Design" class="matrix-style">
+            <div class="matrix-overlay"></div>
+            <div class="matrix-scan"></div>
+        </div>
+    </header>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div class="card-component">
+            <div slot="card-header">SYSTEM.ACCESS</div>
+            <div slot="card-body">
+                <div class="matrix-content" id="system-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">NEURAL.NETWORK</div>
+            <div slot="card-body">
+                <div class="matrix-content" id="neural-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">DIGITAL.CONSCIOUSNESS</div>
+            <div slot="card-body">
+                <div class="matrix-content" id="digital-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script src="js/nav-component.js"></script>
+    <script>
+        // Initialize content loader
+        const contentLoader = new ContentLoader();
+        
+        // Load content when page loads
+        contentLoader.loadContent().then(() => {
+            const categories = [
+                {id: 'system-content', section: 'conceptos_fundamentales'},
+                {id: 'neural-content', section: 'estados_mentales'},
+                {id: 'digital-content', section: 'elementos_misticos'}
+            ];
+
+            categories.forEach(category => {
+                const content = contentLoader.getRandomContent(category.section, 3);
+                if (content && content.length > 0) {
+                    const container = document.getElementById(category.id);
+                    content.forEach(word => {
+                        const matrixText = document.createElement('div');
+                        matrixText.className = 'matrix-text';
+                        
+                        // Create terminal-like output
+                        const prompt = document.createElement('span');
+                        prompt.className = 'matrix-prompt';
+                        prompt.textContent = '> ';
+                        matrixText.appendChild(prompt);
+                        
+                        const text = document.createElement('span');
+                        text.className = 'matrix-code';
+                        text.textContent = word.toUpperCase();
+                        matrixText.appendChild(text);
+                        
+                        container.appendChild(matrixText);
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Toggle button functionality
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-component').classList.toggle('active');
+        });
+    </script>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-rain');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+        const drops = [];
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrix[Math.floor(Math.random()*matrix.length)];
+                ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+                
+                if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0;
+                
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memphis_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-yellow: #ffd800;
+            --color-pink: #ff5470;
+            --color-blue: #00c2ff;
+            --color-mint: #00ffc4;
+            --color-purple: #b967ff;
+            --font-display: 'Rubik', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* Memphis Patterns */
+        .pattern-dots {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--color-blue) 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .pattern-zigzag {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--color-pink) 25%, transparent 25%) -20px 0,
+                        linear-gradient(-45deg, var(--color-pink) 25%, transparent 25%) -20px 0;
+            background-size: 40px 40px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .header-component {
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--color-yellow);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 4rem;
+        }
+
+        .header-component::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--color-pink);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .header-component::after {
+            content: "";
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            width: 40px;
+            height: 40px;
+            background: var(--color-blue);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            z-index: 1;
+        }
+
+        .card-component {
+            background: white;
+            margin: 2rem;
+            padding: 2rem;
+            border: 3px solid #333;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .card-component::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--color-mint),
+                var(--color-mint) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            z-index: -1;
+        }
+
+        .card-component:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        h1, h2 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .memphis-button {
+            background: var(--color-pink);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        .memphis-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .memphis-button:hover::before {
+            left: 100%;
+        }
+
+        .shape-container {
+            position: relative;
+            height: 100px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .memphis-shape {
+            position: absolute;
+            background: var(--color-blue);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            left: 20%;
+            background: var(--color-yellow);
+        }
+
+        .shape-2 {
+            width: 50px;
+            height: 50px;
+            right: 20%;
+            background: var(--color-pink);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .memphis-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .memphis-text::before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--color-mint);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+    <div class="pattern-dots"></div>
+    <div class="pattern-zigzag"></div>
+
+    <!-- Header Component -->
+    <div data-component="header">
+        <div slot="title">
+            <h1>Memphis_01234</h1>
+        </div>
+        <div slot="subtitle">
+            <p class="memphis-text">Formas • Colores • Patrones</p>
+        </div>
+    </div>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Geometría</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0165.webp" alt="Geometría Memphis" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 1rem;">
+                <div class="shape-container">
+                    <div class="memphis-shape shape-1"></div>
+                    <div class="memphis-shape shape-2"></div>
+                </div>
+                <p class="memphis-text">Diseño atrevido y vibrante</p>
+                <button class="memphis-button">Explorar</button>
+            </div>
+        </div>
+
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Patrones</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0170.webp" alt="Patrones Memphis" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 1rem;">
+                <div class="shape-container">
+                    <div class="memphis-shape shape-1" style="background: var(--color-purple)"></div>
+                    <div class="memphis-shape shape-2" style="background: var(--color-mint)"></div>
+                </div>
+                <p class="memphis-text">Ritmo y movimiento</p>
+                <button class="memphis-button">Descubrir</button>
+            </div>
+        </div>
+
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Color</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0003.webp" alt="Color Memphis" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 1rem;">
+                <div class="shape-container">
+                    <div class="memphis-shape shape-1" style="background: var(--color-yellow)"></div>
+                    <div class="memphis-shape shape-2" style="background: var(--color-pink)"></div>
+                </div>
+                <p class="memphis-text">Expresión cromática</p>
+                <button class="memphis-button">Experimentar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/components.js"></script>
+    <script src="../js/content-loader.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script>
+        const contentLoader = new ContentLoader();
+        
+        contentLoader.loadContent().then(() => {
+            const memphisWords = contentLoader.getRandomContent('conceptos_fundamentales', 5);
+            
+            // Actualizar textos con palabras aleatorias
+            const texts = document.querySelectorAll('.memphis-text');
+            texts.forEach((text, index) => {
+                setInterval(() => {
+                    const word = memphisWords[Math.floor(Math.random() * memphisWords.length)];
+                    text.textContent = word;
+                }, 3000 + (index * 1000));
+            });
+        });
+
+        // Animación de formas al hacer hover
+        document.querySelectorAll('.card-component').forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.querySelectorAll('.memphis-shape').forEach(shape => {
+                    shape.style.animationDuration = '1s';
+                });
+            });
+            card.addEventListener('mouseout', () => {
+                card.querySelectorAll('.memphis-shape').forEach(shape => {
+                    shape.style.animationDuration = '3s';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

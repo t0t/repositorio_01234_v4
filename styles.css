@@ -1,0 +1,43 @@
+/* Variables y estilos comunes */
+:root {
+    --font-display: 'Space Grotesk', sans-serif;
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-accent: #ff69b4;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-display);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.header-component {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.card-component {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--color-accent);
+    margin: 1rem;
+    padding: 1rem;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s;
+}
+
+.card-component:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .header-component {
+        padding: 2rem 1rem;
+    }
+}

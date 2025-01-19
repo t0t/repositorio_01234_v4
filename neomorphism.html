@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-bg: #e0e5ec;
+            --color-text: #2d4263;
+            --color-shadow-dark: #a3b1c6;
+            --color-shadow-light: #ffffff;
+            --font-primary: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            padding: 2rem;
+        }
+
+        .header-component {
+            border-radius: 20px;
+            background: var(--color-bg);
+            box-shadow: 
+                20px 20px 60px var(--color-shadow-dark),
+                -20px -20px 60px var(--color-shadow-light);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .neo-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 0;
+            padding: 1rem;
+            border-radius: 15px;
+            background: var(--color-bg);
+            box-shadow: 
+                inset 5px 5px 10px var(--color-shadow-dark),
+                inset -5px -5px 10px var(--color-shadow-light);
+        }
+
+        .card-component {
+            background: var(--color-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 
+                10px 10px 20px var(--color-shadow-dark),
+                -10px -10px 20px var(--color-shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .card-component:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .neo-button {
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 
+                5px 5px 10px var(--color-shadow-dark),
+                -5px -5px 10px var(--color-shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .neo-button:active {
+            box-shadow: 
+                inset 5px 5px 10px var(--color-shadow-dark),
+                inset -5px -5px 10px var(--color-shadow-light);
+        }
+
+        .neo-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            margin: 1rem 0;
+            box-shadow: 
+                inset 5px 5px 10px var(--color-shadow-dark),
+                inset -5px -5px 10px var(--color-shadow-light);
+        }
+
+        .neo-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-bg);
+            margin: 2rem auto;
+            box-shadow: 
+                8px 8px 16px var(--color-shadow-dark),
+                -8px -8px 16px var(--color-shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .neo-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .content-grid { padding: 1rem; }
+            .header-component { padding: 2rem; }
+        }
+
+        .neo-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            background: var(--color-bg);
+            box-shadow: 
+                inset 2px 2px 5px var(--color-shadow-dark),
+                inset -2px -2px 5px var(--color-shadow-light);
+            margin: 1rem 0;
+            cursor: pointer;
+        }
+
+        .neo-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-bg);
+            top: 3px;
+            left: 3px;
+            box-shadow: 
+                3px 3px 8px var(--color-shadow-dark),
+                -3px -3px 8px var(--color-shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .neo-switch.active::after {
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+    <!-- Header Component -->
+    <div data-component="header">
+        <div slot="title">
+            <h1 class="neo-title">Neo_01234</h1>
+            <div class="neo-circle">N</div>
+        </div>
+        <div slot="subtitle">
+            <p>Suave. Elegante. Moderno.</p>
+        </div>
+    </div>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Exploración</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0014.webp" alt="Exploración Visual" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 1rem;">
+                <p class="neo-text">La búsqueda del conocimiento</p>
+                <div class="neo-switch"></div>
+                <button class="neo-button">Activar</button>
+            </div>
+        </div>
+
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Percepción</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0116.webp" alt="Percepción Profunda" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 1rem;">
+                <p class="neo-text">La esencia de la realidad</p>
+                <div class="neo-circle">●</div>
+                <button class="neo-button">Explorar</button>
+            </div>
+        </div>
+
+        <div data-component="card">
+            <div slot="card-header">
+                <h2>Intuición</h2>
+            </div>
+            <div slot="card-body">
+                <img src="../images/imagen-0122.webp" alt="Intuición Natural" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 1rem;">
+                <p class="neo-text">El flujo del pensamiento</p>
+                <div class="neo-switch"></div>
+                <button class="neo-button">Descubrir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/components.js"></script>
+    <script src="../js/content-loader.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script>
+        const contentLoader = new ContentLoader();
+        
+        contentLoader.loadContent().then(() => {
+            const neoWords = contentLoader.getRandomContent('estados_mentales', 5);
+            
+            // Actualizar placeholders con palabras aleatorias
+            document.querySelectorAll('.neo-input').forEach(input => {
+                setInterval(() => {
+                    const word = neoWords[Math.floor(Math.random() * neoWords.length)];
+                    input.placeholder = word;
+                }, 3000);
+            });
+        });
+
+        // Manejar switches
+        document.querySelectorAll('.neo-switch').forEach(switch_ => {
+            switch_.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Efecto de presión en botones
+        document.querySelectorAll('.neo-button').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.boxShadow = 'inset 5px 5px 10px var(--color-shadow-dark), inset -5px -5px 10px var(--color-shadow-light)';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.boxShadow = '5px 5px 10px var(--color-shadow-dark), -5px -5px 10px var(--color-shadow-light)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '5px 5px 10px var(--color-shadow-dark), -5px -5px 10px var(--color-shadow-light)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REPOSITORIO_01234 🌴✨</title>
+    <title>Index_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="styles/nav.css">
     <style>
         /* Reset y variables globales */
         :root {
@@ -147,86 +153,6 @@
             animation: rainbow 8s linear infinite;
             text-shadow: none;
             filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.8));
-        }
-
-        /* Cards Section */
-        .cards {
-            padding: var(--spacing) 0;
-            background: var(--color-background);
-            overflow: hidden;
-        }
-
-        .cards .container {
-            max-width: 100%;
-            padding: 0;
-        }
-
-        .cards__grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0;
-            width: 100%;
-        }
-
-        .card {
-            position: relative;
-            width: 100%;
-            min-height: 300px;
-            height: auto;
-            padding: 4rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: var(--color-background);
-            transition: transform 0.3s ease;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-            transform: rotate(-3deg) scale(1.1);
-            transition: all 0.3s ease;
-            z-index: 1;
-        }
-
-        .card:hover::before {
-            opacity: 0.15;
-            transform: rotate(0deg) scale(1.2);
-        }
-
-        .card__content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #000;
-            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        .card__title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            color: var(--color-text);
-            line-height: 1.2;
-        }
-
-        .card__text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--color-text-secondary);
-            margin: 0;
         }
 
         /* Gallery Section */
@@ -502,74 +428,147 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Fondo dinámico */
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 1px;
+            opacity: 0.15;
+            filter: grayscale(50%);
+        }
+
+        .bg-cell {
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Asegurar que las cards son legibles */
+        .article-card, .brutal-box {
+            background: initial;
+            backdrop-filter: initial;
+        }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <ul class="nav__list">
-            <li>
-                <a href="index.html" class="logo">
-                    <img src="images/logo.svg" alt="Logo 01234" width="60" height="60">
-                </a>
-            </li>
-            <li><a href="pages/conceptos.html" class="nav__link">Conceptos</a></li>
-            <li><a href="pages/procesos.html" class="nav__link">Procesos</a></li>
-            <li><a href="pages/estados.html" class="nav__link">Estados</a></li>
-            <li><a href="pages/misticos.html" class="nav__link">Místicos</a></li>
-        </ul>
-    </nav>
+    <nav-sidebar></nav-sidebar>
 
-    <header class="header-tropical">
-        <h1>Repositorio 01234</h1>
-    </header>
+    <!-- Fondo dinámico -->
+    <div class="dynamic-background"></div>
 
-    <main class="container mt-3">
-        <section class="grid">
-            <article class="article-card">
-                <h2>Vacuidad Creadora</h2>
-                <p>Del vacío emerge la danza eterna de la creación, donde cada pensamiento es una semilla de infinitas posibilidades.</p>
-            </article>
-            <article class="article-card">
-                <h2>Sincronicidad Cósmica</h2>
-                <p>En la vastedad del ser, florece la semilla de la conciencia, tejiendo patrones de significado en el tapiz del tiempo.</p>
-            </article>
-            <article class="article-card">
-                <h2>Metamorfosis Digital</h2>
-                <p>La curiosidad germina en el jardín de lo incognoscible, transformando datos en sabiduría cristalizada.</p>
-            </article>
-        </section>
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <header class="header-tropical">
+            <h1>Repositorio 01234</h1>
+        </header>
 
-        <section class="tropical-gradient brutal-box mt-3 mb-3">
-            <h2 class="text-center">Exploración Conceptual</h2>
-            <div class="grid mt-2">
-                <div class="brutal-box">
-                    <h3>Conceptos Fundamentales</h3>
-                    <ul>
-                        <li>Vacuidad</li>
-                        <li>Infinitud</li>
-                        <li>Eternidad</li>
-                        <li>Trascendencia</li>
-                    </ul>
+        <main class="container mt-3">
+            <section class="grid">
+                <article class="article-card">
+                    <h2>Vacuidad Creadora</h2>
+                    <p>Del vacío emerge la danza eterna de la creación, donde cada pensamiento es una semilla de infinitas posibilidades.</p>
+                </article>
+                <article class="article-card">
+                    <h2>Sincronicidad Cósmica</h2>
+                    <p>En la vastedad del ser, florece la semilla de la conciencia, tejiendo patrones de significado en el tapiz del tiempo.</p>
+                </article>
+                <article class="article-card">
+                    <h2>Metamorfosis Digital</h2>
+                    <p>La curiosidad germina en el jardín de lo incognoscible, transformando datos en sabiduría cristalizada.</p>
+                </article>
+            </section>
+
+            <section class="tropical-gradient brutal-box mt-3 mb-3">
+                <h2 class="text-center">Exploración Conceptual</h2>
+                <div class="grid mt-2">
+                    <div class="brutal-box">
+                        <h3>Conceptos Fundamentales</h3>
+                        <ul>
+                            <li>Vacuidad</li>
+                            <li>Infinitud</li>
+                            <li>Eternidad</li>
+                            <li>Trascendencia</li>
+                        </ul>
+                    </div>
+                    <div class="brutal-box">
+                        <h3>Procesos Creativos</h3>
+                        <ul>
+                            <li>Génesis</li>
+                            <li>Fecundidad</li>
+                            <li>Cristalización</li>
+                            <li>Transmutación</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="brutal-box">
-                    <h3>Procesos Creativos</h3>
-                    <ul>
-                        <li>Génesis</li>
-                        <li>Fecundidad</li>
-                        <li>Cristalización</li>
-                        <li>Transmutación</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <script src="js/nav.js"></script>
+        <script src="./js/components.js"></script>
+        <script src="./js/content-loader.js"></script>
+        <script src="js/nav-component.js"></script>
 
-    <footer class="brutal-box text-center">
-        <p>Expandiendo los límites de la creación digital 🌴✨</p>
-    </footer>
+        <footer class="brutal-box text-center">
+            <p>Expandiendo los límites de la creación digital 🌴✨</p>
+        </footer>
 
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            // Imágenes para el fondo
+            const images = [
+                'images/imagen-0007.webp',
+                'images/imagen-0174.webp',
+                'images/imagen-0180.webp',
+                'images/imagen-0194.webp',
+                'images/imagen-0209.webp'
+            ];
+
+            // Crear celdas del fondo
+            const background = document.querySelector('.dynamic-background');
+            for (let i = 0; i < 16; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'bg-cell';
+                background.appendChild(cell);
+            }
+
+            // Función para cambiar imagen aleatoria
+            function changeRandomImage() {
+                const cells = document.querySelectorAll('.bg-cell');
+                const randomCell = cells[Math.floor(Math.random() * cells.length)];
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                
+                // Transición suave
+                randomCell.style.opacity = '0';
+                setTimeout(() => {
+                    randomCell.style.backgroundImage = `url(${randomImage})`;
+                    randomCell.style.opacity = '1';
+                }, 500);
+            }
+
+            // Inicializar todas las celdas
+            const cells = document.querySelectorAll('.bg-cell');
+            cells.forEach(cell => {
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                cell.style.backgroundImage = `url(${randomImage})`;
+            });
+
+            // Cambiar imágenes periódicamente
+            setInterval(changeRandomImage, 2000);
+        </script>
+    </div>
 </body>
 </html>

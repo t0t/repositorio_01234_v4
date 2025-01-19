@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaporwave_01234</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-pink: #ff6ad5;
+            --color-blue: #00b3ff;
+            --color-purple: #b967ff;
+            --font-retro: 'Press Start 2P', cursive;
+            --font-vt: 'VT323', monospace;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff6ad5, #00b3ff);
+            text-shadow: 2px 2px var(--color-purple);
+            perspective: 1000px;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(transparent 0%, rgba(255, 255, 255, .3) 2%, transparent 3%),
+                linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, .3) 2%, transparent 3%);
+            background-size: 100px 100px;
+            transform: rotateX(60deg);
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .header-component {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-component h1 {
+            font-family: var(--font-retro);
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin: 0;
+            animation: text-float 3s ease-in-out infinite;
+        }
+
+        .card-component {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin: 1rem;
+            padding: 2rem;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .card-component:hover {
+            transform: translateZ(20px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes grid-move {
+            from { transform: rotateX(60deg) translateY(0); }
+            to { transform: rotateX(60deg) translateY(100px); }
+        }
+
+        @keyframes text-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .aesthetic-text {
+            font-family: var(--font-vt);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--color-pink), var(--color-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .palm-tree {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0v100M25 30c25-30 25 0 25 0s0-30 25 0" fill="none" stroke="%23000"/></svg>') repeat-x bottom;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .vaporwave-text-section {
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .full-width {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .manifesto-text {
+            font-size: 1.5rem;
+            line-height: 2;
+            letter-spacing: 0.2em;
+            text-align: justify;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .header-image {
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glitch-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: hue-rotate(45deg) saturate(150%);
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                filter: hue-rotate(45deg) saturate(150%);
+            }
+            50% {
+                filter: hue-rotate(90deg) saturate(200%) brightness(120%);
+            }
+            100% {
+                filter: hue-rotate(45deg) saturate(150%);
+            }
+        }
+
+        /* Nav Component */
+        .nav-component {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-pink);
+        }
+
+        .nav-link.active {
+            color: var(--color-blue);
+        }
+
+        /* Toggle Button */
+        .toggle-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .toggle-icon {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #fff;
+            position: relative;
+        }
+
+        .toggle-icon::before, .toggle-icon::after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #fff;
+            position: absolute;
+            transition: transform 0.2s ease;
+        }
+
+        .toggle-icon::before {
+            top: -6px;
+        }
+
+        .toggle-icon::after {
+            top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+    <div class="grid-background"></div>
+    <div class="palm-tree"></div>
+
+    <!-- Header Component -->
+    <header class="header-component">
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button id="toggleButton" class="toggle-button">
+                <span class="toggle-icon"></span>
+            </button>
+        </div>
+        <div slot="title">VAPORWAVE_01234</div>
+        <div slot="subtitle">A E S T H E T I C S</div>
+        <div class="header-image">
+            <img src="images/imagen-0180.webp" alt="Vaporwave Aesthetic" class="glitch-image">
+        </div>
+    </header>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+        <div class="card-component">
+            <div slot="card-header">
+                <h2 class="aesthetic-text">CONCEPTOS FUNDAMENTALES</h2>
+            </div>
+            <div slot="card-body">
+                <div class="vaporwave-content" id="conceptos-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">
+                <h2 class="aesthetic-text">ESTADOS MENTALES</h2>
+            </div>
+            <div slot="card-body">
+                <div class="vaporwave-content" id="estados-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">
+                <h2 class="aesthetic-text">ELEMENTOS MÍSTICOS</h2>
+            </div>
+            <div slot="card-body">
+                <div class="vaporwave-content" id="misticos-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">
+                <h2 class="aesthetic-text">PROCESOS CREATIVOS</h2>
+            </div>
+            <div slot="card-body">
+                <div class="vaporwave-content" id="procesos-content">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generated Text Section -->
+    <div class="vaporwave-text-section">
+        <div class="card-component full-width">
+            <div slot="card-header">
+                <h2 class="aesthetic-text">ＭＡＮＩＦＥＳＴＯ</h2>
+            </div>
+            <div slot="card-body">
+                <div class="vaporwave-content" id="generated-text">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script src="js/nav-component.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script>
+        // Initialize content loader
+        const contentLoader = new ContentLoader();
+        
+        // Load content when page loads
+        contentLoader.loadContent().then(() => {
+            const categories = [
+                {id: 'conceptos-content', section: 'conceptos_fundamentales'},
+                {id: 'estados-content', section: 'estados_mentales'},
+                {id: 'misticos-content', section: 'elementos_misticos'},
+                {id: 'procesos-content', section: 'procesos_creativos'}
+            ];
+
+            categories.forEach(category => {
+                const content = contentLoader.getRandomContent(category.section, 5);
+                if (content && content.length > 0) {
+                    document.getElementById(category.id).innerHTML = content
+                        .map(word => `<span class="aesthetic-text">${word.toUpperCase()}</span>`)
+                        .join(' // ');
+                }
+            });
+
+            // Generate manifesto text
+            const generateSentence = (type) => {
+                const concepts = contentLoader.getRandomContent('conceptos_fundamentales', 1)[0];
+                const states = contentLoader.getRandomContent('estados_mentales', 1)[0];
+                const mystic = contentLoader.getRandomContent('elementos_misticos', 1)[0];
+                const process = contentLoader.getRandomContent('procesos_creativos', 1)[0];
+
+                switch(type) {
+                    case 'intro':
+                        return `En la profundidad del ${mystic}, el ${concepts} ${process} hacia una nueva dimensión. `;
+                    case 'development':
+                        return `Mientras el ${states} ${process}, nuestro ${concepts} se transforma en ${mystic}. `;
+                    case 'action':
+                        return `${process} a través del ${mystic} para alcanzar el ${concepts}. `;
+                    case 'reflection':
+                        return `El ${states} nos revela cómo el ${concepts} ${process} en el ${mystic}. `;
+                    case 'conclusion':
+                        return `Finalmente, el ${concepts} y el ${mystic} se funden en un eterno ${states}. `;
+                    default:
+                        return '';
+                }
+            };
+
+            // Generate structured text
+            const generateArticle = () => {
+                const intro = generateSentence('intro');
+                const dev1 = generateSentence('development');
+                const action = generateSentence('action');
+                const dev2 = generateSentence('development');
+                const reflection = generateSentence('reflection');
+                const conclusion = generateSentence('conclusion');
+
+                return `${intro}${dev1}${action}${dev2}${reflection}${conclusion}`;
+            };
+
+            document.getElementById('generated-text').innerHTML = `
+                <p class="aesthetic-text manifesto-text">
+                    ${generateArticle().toUpperCase()}
+                </p>
+            `;
+        });
+    </script>
+</body>
+</html>

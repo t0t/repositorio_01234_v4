@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEN SPACE</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --color-paper: #f5f5f5;
+            --color-ink: #2c2c2c;
+            --color-accent: #9c7c38;
+            --font-jp: 'Noto Serif JP', serif;
+        }
+
+        body {
+            background-color: var(--color-paper);
+            color: var(--color-ink);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-component::after {
+            content: "空";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-jp);
+            font-size: 12rem;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .zen-image {
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zen-style {
+            width: 100%;
+            height: auto;
+            display: block;
+            opacity: 0.8;
+            filter: brightness(110%) sepia(20%);
+            transition: all 0.5s ease;
+        }
+
+        .zen-style:hover {
+            opacity: 1;
+            filter: brightness(100%) sepia(0%);
+        }
+    </style>
+</head>
+<body>
+    <nav-sidebar></nav-sidebar>
+    <!-- Header Component -->
+    <div class="header-component">
+        <div slot="title">ZEN_01234</div>
+        <div slot="subtitle">Simplicidad. Claridad. Paz.</div>
+        <div class="zen-image">
+            <img src="images/imagen-0014.webp" alt="Zen Aesthetic" class="zen-style">
+        </div>
+    </div>
+
+    <div class="zen-circle"></div>
+
+    <!-- Content Cards -->
+    <div class="content-grid">
+        <div class="card-component">
+            <div slot="card-header">Meditación Digital</div>
+            <div slot="card-body">
+                <p>Encuentra tu centro en el caos digital. Respira. Observa. Siente el flujo de datos.</p>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">Minimalismo</div>
+            <div slot="card-body">
+                <p>Menos es más. Cada píxel tiene un propósito. Cada espacio vacío cuenta una historia.</p>
+            </div>
+        </div>
+
+        <div class="card-component">
+            <div slot="card-header">Armonía</div>
+            <div slot="card-body">
+                <p>Balance entre lo digital y lo natural. Un equilibrio perfecto de forma y función.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/components.js"></script>
+    <script src="../js/content-loader.js"></script>
+    <script src="js/nav-component.js"></script>
+    <script>
+        const contentLoader = new ContentLoader();
+        
+        contentLoader.loadContent().then(() => {
+            const zenWords = contentLoader.getRandomContent('estados_mentales', 5);
+            
+            // Actualizar el contenido de las cards con frases zen
+            const cards = document.querySelectorAll('.card-body p');
+            cards.forEach((card, index) => {
+                setInterval(() => {
+                    const word = zenWords[Math.floor(Math.random() * zenWords.length)];
+                    card.textContent = word;
+                    card.style.opacity = 0;
+                    setTimeout(() => {
+                        card.style.opacity = 1;
+                    }, 100);
+                }, 5000 + (index * 1000));
+            });
+        });
+    </script>
+</body>
+</html>
